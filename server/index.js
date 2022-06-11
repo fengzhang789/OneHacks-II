@@ -12,9 +12,7 @@ app.use(bodyParser.json())
 
 app.get('http://localhost:5000', (req, res) => {
     fetch('https://apis.indeed.com/oauth/v2/tokens',{
-        method: 'POST',
-        client_id: 'd6841b5ea4ccb6630afd6b633d0c16552d83ef635323964e5afa2209edf9c4ba',
-        client_secret: 
+        method: 'POST'
     })
     console.log(req);
     console.log(res);
