@@ -1,0 +1,23 @@
+.navbar {
+    display:flex;
+    align-items: center;
+    margin: 1%;
+    
+}
+
+
+.input {
+    
+}
+
+.submit {
+    margin: 0 1%;
+}
+
+#login {
+    margin: 0 1%;
+}
+
+#signup {
+    margin: 0 1%;
+}
