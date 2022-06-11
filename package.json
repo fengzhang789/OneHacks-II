@@ -14,6 +14,8 @@
     "@emotion/styled": "^11.8.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
-    "framer-motion": "^6.3.11"
+    "framer-motion": "^6.3.11",
+    "indeed-api-client": "^1.3.0",
+    "nodemon": "^2.0.16"
   }
 }

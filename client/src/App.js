@@ -1,5 +1,7 @@
 import Navbar from "./components/navbar"
 import React from "react"
+import Login from "./pages/login"
+
 
 
 function App() {
@@ -7,10 +9,7 @@ function App() {
   
   function callBackend() {
       fetch("http://localhost:5000/api", {info: "message"})
-      .then((res) => {
-      return res.json()
-      })
-      
+      .then((res) => res.json())
       .then((data) => setData(data));
   }
   
@@ -19,6 +18,7 @@ function App() {
   return (
       <div>
         <Navbar />
+        <Login />
         <p>{info.message}</p>
       </div>
   )
