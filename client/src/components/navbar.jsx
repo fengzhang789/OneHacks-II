@@ -4,6 +4,7 @@ import { useState } from "react"
 import './navbar.css'
 import { SearchIcon } from '@chakra-ui/icons'
 import { login, createUser } from "../firebase/auth"
+import {Link} from "react-router-dom"
 
 
 function Navbar() {
@@ -18,7 +19,11 @@ function Navbar() {
     }
 
     const loginRedirect = () => {
-        alert('')
+        
+    }
+
+    const signupRedirect = () => {
+
     }
 
     return (
@@ -37,8 +42,8 @@ function Navbar() {
                 <IconButton type="submit" marginRight="8%" aria-label='Search database' icon={<SearchIcon />} />
 
                 {/* LOGIN AND SIGNUP */}
-                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" onClick={loginRedirect} id="login">Login</Button>
-                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup">Sign Up</Button>
+                <Link to="login" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"><Button onClick={loginRedirect} >Login</Button></Link>
+                <Link to="/signup" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><Button onClick={signupRedirect}>Sign Up</Button></Link>
             </form> 
             
         </div>

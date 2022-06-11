@@ -5,18 +5,25 @@ const cors = require('cors')
 const app = express()
 const apiPort = 5000
 
+const {
+    client_id,
+    client_secret
+} = require("./secrets.json");
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(bodyParser.json())
 
 
-app.get('http://localhost:5000', (req, res) => {
-    fetch('https://apis.indeed.com/oauth/v2/tokens',{
-        method: 'POST'
-    })
+app.get('/api', (req, res) => {
+    // fetch('https://apis.indeed.com/oauth/v2/tokens',{
+    //     method: 'POST',
+        
+    // })
     console.log(req);
     console.log(res);
-    res.send({message: "Hello World"})
+    console.log(client_id);
+    res.send({message: client_secret})      // SEND JSON ONLY PLEASEEEE
 })
 
 

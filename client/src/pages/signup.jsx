@@ -4,12 +4,12 @@ import { useState, Link } from "react"
 import { loginUser, createUser } from "../firebase/auth"
 import Navbar from "../components/navbar"
 
-function Login() {
+function Signup() {
     // SUBMIT
     const HandleSubmit = (event) => {
         event.preventDefault();
         alert("Submitted");
-        loginUser(email, password);
+        createUser(email, password);
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
     }
@@ -21,7 +21,7 @@ function Login() {
         <div className = "form-content-right">
             <Navbar />
             <form className= "form" onSubmit={HandleSubmit}>
-                <h1 id="login"> Log in </h1>
+                <h1 id="login"> Sign Up </h1>
 
                 {/* EMAIL */}
                 <label htmlFor = "email" className="form-label"> <u>Email</u> </label>
@@ -46,4 +46,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Signup

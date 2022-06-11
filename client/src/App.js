@@ -1,6 +1,6 @@
 import Navbar from "./components/navbar"
 import React from "react"
-import Login from "./pages/login"
+
 
 
 
@@ -8,7 +8,7 @@ function App() {
   const [info, setData] = React.useState({message: "Processing..."});
   
   function callBackend() {
-      fetch("http://localhost:5000/api", {info: "message"})
+      fetch("http://localhost:5000/api")
       .then((res) => res.json())
       .then((data) => setData(data));
   }
@@ -18,7 +18,6 @@ function App() {
   return (
       <div>
         <Navbar />
-        <Login />
         <p>{info.message}</p>
       </div>
   )
