@@ -1,7 +1,7 @@
 import { Button, Input, InputRightElement, Kbd, InputGroup, IconButton, Tag } from "@chakra-ui/react"
 import React from 'react'
 import { useState } from "react"
-import './navbar.css'
+import '../stylesheets/navbar.css'
 import { SearchIcon } from '@chakra-ui/icons'
 import {Link} from "react-router-dom"
 
@@ -22,7 +22,7 @@ function Navbar() {
             
             <form className="navbar" onSubmit={handleSubmit}>
                 {/* TITLE */}
-                 <Tag fontSize="1.25vmax" id="nameinside"><a href="/">Name here</a></Tag>
+                 <Tag  id="nameinside"><a href="/" fontSize="1.25vmax">Name here</a></Tag>
 
                 {/* SEARCH BAR */}
                 <InputGroup>
@@ -33,8 +33,8 @@ function Navbar() {
                 <IconButton type="submit" marginRight="8%" aria-label='Search database' icon={<SearchIcon />} />
 
                 {/* LOGIN AND SIGNUP */}
-                <Link to="login" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"><Button>Login</Button></Link>
-                <Link to="/signup" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><Button>Sign Up</Button></Link>
+                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"> <a href="/login">Login</a> </Button>
+                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><a href="/signup">Sign Up</a></Button>
             </form> 
             
         </div>

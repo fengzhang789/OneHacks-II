@@ -21,12 +21,12 @@ function createUser(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
-    alert('userCreated')
     const user = userCredential.user;
+    alert("User Created")
     // ...
   })
   .catch((error) => {
-    console.log(error);
+    alert(error);
     const errorCode = error.code;
     const errorMessage = error.message;
     // ..
@@ -39,11 +39,11 @@ function loginUser(email, password){
     .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        alert("Logged in")
+        alert("Signed In")
         // ...
     })
     .catch((error) => {
-        console.log(error)
+        alert(error)
         const errorCode = error.code;
         const errorMessage = error.message;
     });

@@ -5,15 +5,6 @@
     
 }
 
-/* #Name{
-    white-space: nowrap;
-    padding-right: 3%;
-    padding-left: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    margin-right:2%;
-} */
-
 #nameinside {
     
     white-space: nowrap;
@@ -33,12 +24,15 @@
 
 .submit {
     margin: 0 1%;
+    
 }
 
 #login {
     margin: 0 1%;
+    padding: 0 2%;
 }
 
 #signup {
     margin: 0 1%;
+    padding: 0 2%;
 }
