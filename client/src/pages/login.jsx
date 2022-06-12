@@ -1,9 +1,29 @@
 import { Button, Input, InputRightElement, Kbd, InputGroup, IconButton, Tag } from "@chakra-ui/react"
 import React from 'react'
 import { useState, Link } from "react"
-import { loginUser, createUser } from "../firebase/auth"
 import Navbar from "../components/navbar"
 import '../stylesheets/login.css'
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { Navigate } from "react-router-dom";
+
+
+// INIT FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyBNQh8U9rl9HSgvYvS5_ujyDXGJHNbM7B4",
+  authDomain: "highstart-480cd.firebaseapp.com",
+  projectId: "highstart-480cd",
+  storageBucket: "highstart-480cd.appspot.com",
+  messagingSenderId: "30377976822",
+  appId: "1:30377976822:web:00763527e4874fad0d9dd7",
+  measurementId: "G-WV79G5EEQJ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
 
 function Login() {
 
@@ -13,9 +33,22 @@ function Login() {
     // SUBMIT
     const HandleSubmit = (event) => {
         event.preventDefault();
-        loginUser(email, password);
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            // const user = userCredential.user;
+            alert("Signed In")
+            return <Navigate to={"/profile"} />
+            // ...
+        })
+        .catch((error) => {
+            alert(error)
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+        });
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
+        window.reload()
     }
 
     

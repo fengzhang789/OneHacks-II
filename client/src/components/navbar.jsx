@@ -1,14 +1,18 @@
 import { Button, Input, InputRightElement, Kbd, InputGroup, IconButton, Tag } from "@chakra-ui/react"
 import React from 'react'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import '../stylesheets/navbar.css'
 import { SearchIcon } from '@chakra-ui/icons'
-import {Link} from "react-router-dom"
+import { signUserOut } from "../firebase/auth"
 
 
-function Navbar() {
+function Navbar( props ) {
 
     const [job, updateJob] = useState('');
+    
+    useEffect(() => {
+    }, [])
+
     
     // HANDLE SUBMIT
     const handleSubmit = (e) => {
@@ -32,9 +36,24 @@ function Navbar() {
                 
                 <IconButton type="submit" marginRight="8%" aria-label='Search database' icon={<SearchIcon />} />
 
-                {/* LOGIN AND SIGNUP */}
-                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"> <a href="/login">Login</a> </Button>
-                <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><a href="/signup">Sign Up</a></Button>
+                {/* LOGIN AND SIGNUP or SIGN OUT AND PROFILE */}
+                {props.user ? (
+                        // USER IS LOGGED IN
+                        <>
+                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"> <a href="/profile">Profile</a> </Button>
+                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup" onClick={signUserOut}>Sign Out</Button>
+                        </>
+                        
+                    ) : (
+                        // USER IS LOGGED OFF
+                        <>
+                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"> <a href="/login">Login</a> </Button>
+                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><a href="/signup">Sign Up</a></Button>
+                        </>
+                        
+                    )
+                }
+                
             </form> 
             
         </div>

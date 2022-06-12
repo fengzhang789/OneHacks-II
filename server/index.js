@@ -2,7 +2,7 @@ const fetch = require("node-fetch")
 const https = require('https')
 const express = require('express')
 const bodyParser = require('body-parser')
-//const cors = require('cors')
+const cors = require('cors')
 const app = express()
 const apiPort = 5000
 
@@ -12,43 +12,40 @@ const {
 } = require("./secrets.json");
 
 app.use(bodyParser.urlencoded({ extended: true }))
-//app.use(cors())
+app.use(cors())
 app.use(bodyParser.json())
 
-let info = {
-    grant_type: "authorization_code",
-    client_id: client_id,
-    client_secret: client_secret,
-    scope: "employer_access"
-}
-
-const url = 'https://indeed-indeed.p.rapidapi.com/apisearch?publisher=undefined&v=2&format=json&callback=%3CREQUIRED%3E&q=java&l=austin%2C%20tx&sort=%3CREQUIRED%3E&radius=25&st=%3CREQUIRED%3E&jt=%3CREQUIRED%3E&start=%3CREQUIRED%3E&limit=%3CREQUIRED%3E&fromage=%3CREQUIRED%3E&highlight=%3CREQUIRED%3E&filter=%3CREQUIRED%3E&latlong=%3CREQUIRED%3E&co=%3CREQUIRED%3E&chnl=%3CREQUIRED%3E&userip=%3CREQUIRED%3E&useragent=%3CREQUIRED%3E'
+var access_token = {
+    access_token: ''
+};
 
 app.get('/api', (req, res) => {
-    
+    //indeed()
+    const paramsString = 'grant_type=client_credentials&client_id='+client_id+'&client_secret='+client_secret
+    const searchParams = new URLSearchParams(paramsString)
+    console.log('oned')
     fetch('https://apis.indeed.com/oauth/v2/tokens',{
         method: 'POST',
-        body: {
-            "grant_type": "client_credentials",
-            "client_id": client_id,
-            "client_secret": client_secret,
-            "scope": "employer_access"
-        },
+        body: searchParams,
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded',
             "Accept": 'application/json'
         }
-    }).then((response) => {
-        console.log(JSON.stringify(response) + 'response');
-        response.json()
     })
-    .then((data) => {
-        console.log(data + 'data')
+    .then(res => res.json())
+    .then(json => {
+        access_token = json
+        console.log(access_token+'access_token')
     })
-
+    .catch(err => console.log(err));
+    console.log(access_token)
     console.log("yes")
-    res.send({message: typeof response})
+    res.send(JSON.stringify(access_token))
         //    SEND JSON ONLY PLEASEEEE
+})
+
+app.get('/jobs', (req, res) => {
+    
 })
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))

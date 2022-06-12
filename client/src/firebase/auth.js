@@ -1,5 +1,6 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import React from "react";
 
 // INIT FIREBASE
 const firebaseConfig = {
@@ -27,8 +28,8 @@ function createUser(email, password) {
   })
   .catch((error) => {
     alert(error);
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    // const errorCode = error.code;
+    // const errorMessage = error.message;
     // ..
   });
 }
@@ -38,37 +39,24 @@ function loginUser(email, password){
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 
-        const user = userCredential.user;
+        // const user = userCredential.user;
         alert("Signed In")
         // ...
     })
     .catch((error) => {
         alert(error)
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
     });
 }
 
-// CHECK IF USER IS LOGGED IN
-function isUserLoggedIn() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
-
-      console.log("This user is logged in")
-      return true
-
-    } 
-    
-    else {
-      // User is signed out
-    return false
-    }
+// LOG OUT
+function signUserOut() {
+  signOut(auth).then(() => {
+    alert("Signed Out!")
+  }).catch((error) => {
+    alert(error)
   });
 }
 
-
-
-export { createUser, loginUser, isUserLoggedIn }
+export { createUser, loginUser, signUserOut }
