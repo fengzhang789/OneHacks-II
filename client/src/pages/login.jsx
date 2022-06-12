@@ -22,8 +22,8 @@ function Login() {
     return (
         <div className = "form-content-right">
             <Navbar />
-            <form className= "form" onSubmit={HandleSubmit}>
-                <h1 id="loginForm"> <b>Log In</b></h1>
+            <form className="form" onSubmit={HandleSubmit}>
+                <h1 class="loginForm"> <b>Log In</b></h1>
 
                 {/* EMAIL */}
                 <label htmlFor = "email"  className="form-label"> <b>Email</b> </label>

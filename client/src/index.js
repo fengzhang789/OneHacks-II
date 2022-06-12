@@ -6,6 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/login"
 import Signup from "./pages/signup"
+import Profile from "./pages/profile"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,8 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
     
       </BrowserRouter>

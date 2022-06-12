@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
 // INIT FIREBASE
@@ -49,4 +49,26 @@ function loginUser(email, password){
     });
 }
 
-export { createUser, loginUser }
+// CHECK IF USER IS LOGGED IN
+function isUserLoggedIn() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+
+      console.log("This user is logged in")
+      return true
+
+    } 
+    
+    else {
+      // User is signed out
+    return false
+    }
+  });
+}
+
+
+
+export { createUser, loginUser, isUserLoggedIn }
