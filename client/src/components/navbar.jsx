@@ -3,7 +3,6 @@ import React from 'react'
 import { useState } from "react"
 import './navbar.css'
 import { SearchIcon } from '@chakra-ui/icons'
-import { login, createUser } from "../firebase/auth"
 import {Link} from "react-router-dom"
 
 
@@ -18,20 +17,12 @@ function Navbar() {
         document.getElementById("searchJob").value = "";
     }
 
-    const loginRedirect = () => {
-        
-    }
-
-    const signupRedirect = () => {
-
-    }
-
     return (
         <div className="navbar-container">
             
             <form className="navbar" onSubmit={handleSubmit}>
                 {/* TITLE */}
-                <Tag fontSize="1.25vmax" id="Name">Name here</Tag>
+                 <Tag fontSize="1.25vmax" id="nameinside"><a href="/">Name here</a></Tag>
 
                 {/* SEARCH BAR */}
                 <InputGroup>
@@ -42,8 +33,8 @@ function Navbar() {
                 <IconButton type="submit" marginRight="8%" aria-label='Search database' icon={<SearchIcon />} />
 
                 {/* LOGIN AND SIGNUP */}
-                <Link to="login" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"><Button onClick={loginRedirect} >Login</Button></Link>
-                <Link to="/signup" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><Button onClick={signupRedirect}>Sign Up</Button></Link>
+                <Link to="login" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"><Button>Login</Button></Link>
+                <Link to="/signup" fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup"><Button>Sign Up</Button></Link>
             </form> 
             
         </div>
