@@ -2,6 +2,8 @@ import React from 'react'
 import { getAuth,  onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import Navbar from '../components/navbar';
+import { readFromDB } from '../firebase/database';
+
 
 // INIT FIREBASE
 const firebaseConfig = {
@@ -20,16 +22,30 @@ const auth = getAuth(app);
 
 function Profile(props) {
     const [user, setStatus] = React.useState(null)
+    const [firstName, setFName] = React.useState(null)
+    const [lastName, setLName] = React.useState(null)
+    const [type, setType] = React.useState(null)
+    const [data, setData] = React.useState(null)
     
     React.useEffect(() => {
        //CHECK IF USER IS LOGGED IN
         onAuthStateChanged(auth, (user) => {
             if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            // const uid = user.uid; //USER ID
-            console.log("Returning true")
-            setStatus(true)
+                
+                const uid = user.uid; //USER ID
+                const fetchFromDB = async () => {
+                    const data = await readFromDB("user data", uid)
+
+                    console.log(data)
+                    
+                    setFName(data.firstName)
+                    setLName(data.lastName)
+                    setType(data.type)
+                    setStatus(true)
+                }
+                fetchFromDB()
+
+                
             } 
             else {
             // User is signed out
@@ -40,12 +56,13 @@ function Profile(props) {
     
     
     
+    
     return (
         <>
             <Navbar user={user}/>
             {user ? (
                 // LOGGED IN
-                <p>You're allowed on this page</p>
+                <p>Hi {firstName} {lastName}, {type}</p>
             ) : (
                 // LOGGED OUT
                 <p>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE</p>

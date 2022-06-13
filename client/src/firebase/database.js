@@ -1,7 +1,7 @@
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDoc } from "firebase/firestore"; 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore"; 
+
 
 // INIT FIREBASE
 const firebaseConfig = {
@@ -23,12 +23,23 @@ const db = getFirestore(app);
 // Add a new document in collection "cities"
 async function addToDB(coll, userID, json) {
     await setDoc(doc(db, coll, userID), json);
-
-      
-      
-
-      
-      
 }
 
-export default addToDB
+
+async function readFromDB(coll, userID) {
+    const docRef = doc(db, coll, userID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        return docSnap.data()
+        
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+
+}
+
+
+export { addToDB, readFromDB } 

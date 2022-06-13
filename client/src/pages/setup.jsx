@@ -3,7 +3,7 @@ import { getAuth,  onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { Button, Input, Text } from "@chakra-ui/react"
 import "../stylesheets/setup.css"
-import addToDB from '../firebase/database';
+import { addToDB } from '../firebase/database';
 import { useNavigate } from 'react-router-dom';
 
 // INIT FIREBASE
