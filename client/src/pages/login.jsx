@@ -1,11 +1,11 @@
-import { Button, Input, InputRightElement, Kbd, InputGroup, IconButton, Tag } from "@chakra-ui/react"
+import {Input } from "@chakra-ui/react"
 import React from 'react'
-import { useState, Link } from "react"
+import { useState } from "react"
 import Navbar from "../components/navbar"
 import '../stylesheets/login.css'
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 // INIT FIREBASE
@@ -26,7 +26,7 @@ const auth = getAuth(app);
 
 
 function Login() {
-
+    const navigate = useNavigate();
     const [email, updateEmail] = useState("")
     const [password, updatePassword] = useState("")
 
@@ -38,7 +38,7 @@ function Login() {
             // Signed in 
             // const user = userCredential.user;
             alert("Signed In")
-            return <Navigate to={"/profile"} />
+            return navigate("/profile")
             // ...
         })
         .catch((error) => {

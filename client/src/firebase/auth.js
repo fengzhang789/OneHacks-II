@@ -1,6 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import React from "react";
 
 // INIT FIREBASE
 const firebaseConfig = {
@@ -58,5 +57,7 @@ function signUserOut() {
     alert(error)
   });
 }
+
+
 
 export { createUser, loginUser, signUserOut }

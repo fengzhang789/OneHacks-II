@@ -1,0 +1,41 @@
+.choice {
+    text-align: center;
+    font-size: 4vmax;
+    margin-top: 10%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-bottom: 3%;
+}
+
+
+.btncontainer {
+    display: flex;
+    justify-content: center;
+}
+
+.btnchoice, .btnchoice1{
+    margin: 0 5%;
+    padding: 2% 5%;
+}
+
+.namesField {
+    max-width: 50%;
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-bottom: 1%;
+}
+
+#submitButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#submitButton {
+    margin: 7%;
+    padding: 2% 3%;
+}
+
+#welcometext {
+    color: "#44c7c0";
+    margin-bottom: 20%;
+}

@@ -4,14 +4,22 @@ import { useState, useEffect } from "react"
 import '../stylesheets/navbar.css'
 import { SearchIcon } from '@chakra-ui/icons'
 import { signUserOut } from "../firebase/auth"
+import { useNavigate } from "react-router-dom"
 
 
 function Navbar( props ) {
 
     const [job, updateJob] = useState('');
     
+    
     useEffect(() => {
     }, [])
+
+    //HANDLE SIGNOUT
+    const HandleSignOut = () => {
+        signUserOut()
+        useNavigate("/")
+    }
 
     
     // HANDLE SUBMIT
@@ -41,7 +49,7 @@ function Navbar( props ) {
                         // USER IS LOGGED IN
                         <>
                             <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="login"> <a href="/profile">Profile</a> </Button>
-                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup" onClick={signUserOut}>Sign Out</Button>
+                            <Button fontSize="1vmax" paddingRight="2%" paddingLeft="2%" id="signup" onClick={HandleSignOut}>Sign Out</Button>
                         </>
                         
                     ) : (

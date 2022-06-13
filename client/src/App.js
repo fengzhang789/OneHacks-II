@@ -57,7 +57,7 @@ function App() {
   return (
       <div>
         <Navbar user={loggedIn}/>
-        <p>{info.token_type}</p>
+        <p>{typeof info}</p>
       </div>
   )
 }
