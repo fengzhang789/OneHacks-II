@@ -1,11 +1,20 @@
-import {Input } from "@chakra-ui/react"
-import React from 'react'
-import { useState } from "react"
-import Navbar from "../components/navbar"
-import '../stylesheets/login.css'
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 // INIT FIREBASE
@@ -25,60 +34,121 @@ const auth = getAuth(app);
 
 
 
-function Login() {
-    const navigate = useNavigate();
-    const [email, updateEmail] = useState("")
-    const [password, updatePassword] = useState("")
-
-    // SUBMIT
-    const HandleSubmit = (event) => {
-        event.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            // const user = userCredential.user;
-            alert("Signed In")
-            return navigate("/profile")
-            // ...
-        })
-        .catch((error) => {
-            alert(error)
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
-        });
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";
-        window.reload()
-    }
-
-    
-    return (
-        <div className = "form-content-right">
-            <Navbar />
-            <form className="form" onSubmit={HandleSubmit}>
-                <h1 class="loginForm"> <b>Log In</b></h1>
-
-                {/* EMAIL */}
-                <label htmlFor = "email"  className="form-label"> <b>Email</b> </label>
-                <br></br>
-                <Input fontSize="1vmax" id="email" className="inputForm" onChange={(e) => updateEmail(e.target.value)} variant='outline' placeholder='Enter Email Here' />
-
-                
-                {/* PASSWORD */}
-                <label htmlFor = "password" className="form-label"> <b>Password</b> </label>
-                <br></br>
-                <Input fontSize="1vmax" id="password" type="password" className="inputForm" onChange={(e) => updatePassword(e.target.value)} variant='outline' placeholder='Enter Email Here' />
-                    
-                
-                {/* SUBMIT */}
-                <Input type="submit" backgroundColor="#44c7c0" className="submitForm"/>
-                
-                {/* <p className="NoAccount">Don't have an account? <Link to="/signup">Sign up here</Link></p>
-                <button onClick={handleLogin} class="submitButton">Sign In</button> */}
-                
-              </form>
-          </div>
-    )
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
 
-export default Login
+
+
+const theme = createTheme();
+
+export default function Login() {
+    const navigate = useNavigate()
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        const data = new FormData(event.currentTarget);
+
+        
+
+        var email = data.get('email')
+        var password = data.get('password')
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                // const user = userCredential.user;
+                alert("Signed In")
+                navigate("/profile")
+                // ...
+            })
+            .catch((error) => {
+                alert(error)
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+            });
+        console.log({
+        email: data.get('email'),
+        password: data.get('password'),
+        });
+    };
+
+    return (
+        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Sign in
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                />
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                />
+                <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+                />
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                Sign In
+                </Button>
+                <Grid container>
+                <Grid item xs>
+                    <Link href="#" variant="body2">
+                    Forgot password?
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link href="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                    </Link>
+                </Grid>
+                </Grid>
+            </Box>
+            </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+        </ThemeProvider>
+    );
+}

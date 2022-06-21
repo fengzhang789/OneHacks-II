@@ -3,6 +3,7 @@ import { getAuth,  onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import Navbar from '../components/navbar';
 import { readFromDB } from '../firebase/database';
+import profilePicture from '../assets/nouser.png'
 
 
 // INIT FIREBASE
@@ -25,7 +26,6 @@ function Profile(props) {
     const [firstName, setFName] = React.useState(null)
     const [lastName, setLName] = React.useState(null)
     const [type, setType] = React.useState(null)
-    const [data, setData] = React.useState(null)
     
     React.useEffect(() => {
        //CHECK IF USER IS LOGGED IN
@@ -43,6 +43,7 @@ function Profile(props) {
                     setType(data.type)
                     setStatus(true)
                 }
+
                 fetchFromDB()
 
                 
@@ -62,7 +63,11 @@ function Profile(props) {
             <Navbar user={user}/>
             {user ? (
                 // LOGGED IN
-                <p>Hi {firstName} {lastName}, {type}</p>
+                <div className="profile">
+                    <img src={profilePicture} alt="profile"></img>
+                    <p>Hi {firstName} {lastName}, {type}</p>
+                </div>
+                
             ) : (
                 // LOGGED OUT
                 <p>YOU ARE NOT AUTHORIZED TO VIEW THIS PAGE</p>

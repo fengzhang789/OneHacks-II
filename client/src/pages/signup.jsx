@@ -1,8 +1,17 @@
-import { Input } from "@chakra-ui/react"
-import React from 'react'
-import { useState } from "react"
-import Navbar from "../components/navbar"
-import "../stylesheets/login.css"
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom"
 import { initializeApp } from "firebase/app";
@@ -22,12 +31,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-function Signup() {
-    const navigate = useNavigate()
 
-    // SUBMIT
-    const HandleSubmit = (event) => {
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+
+export default function SignUp() {
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (event) => {
         event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        var email = data.get('email');
+        var password = data.get("password")
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
@@ -41,40 +71,71 @@ function Signup() {
                 // const errorMessage = error.message;
                 // ..
             });
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";
-    }
-
-    const [email, updateEmail] = useState("")
-    const [password, updatePassword] = useState("")
+    };
 
     return (
-        <div className = "form-content-right">
-            <Navbar />
-            <form className= "form" onSubmit={HandleSubmit}>
-                <h1 class="loginForm"> <b>Sign Up</b> </h1>
-
-                {/* EMAIL */}
-                <label htmlFor = "email" className="form-label"> <b>Email</b> </label>
-                <br></br>
-                <Input fontSize="1vmax" id="email" className="inputForm" onChange={(e) => updateEmail(e.target.value)} variant='outline' placeholder='Enter Email Here' />
-
-                
-                {/* PASSWORD */}
-                <label htmlFor = "password" className="form-label"> <b>Password</b> </label>
-                <br></br>
-                <Input fontSize="1vmax" id="password" type="password" className="inputForm" onChange={(e) => updatePassword(e.target.value)} variant='outline' placeholder='Enter Email Here' />
-                    
-                
-                {/* SUBMIT */}
-                <Input type="submit" backgroundColor="#44c7c0" className="submitForm"/>
-                
-                {/* <p className="NoAccount">Don't have an account? <Link to="/signup">Sign up here</Link></p>
-                <button onClick={handleLogin} class="submitButton">Sign In</button> */}
-                
-              </form>
-          </div>
-    )
+        <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Sign Up
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                />
+                <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                />
+                <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                >
+                Sign Up
+                </Button>
+                <Grid container>
+                <Grid item xs>
+                    <Link href="#" variant="body2">
+                    Forgot password?
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link href="/login" variant="body2">
+                    {"Already have an account? Log in"}
+                    </Link>
+                </Grid>
+                </Grid>
+            </Box>
+            </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+        </ThemeProvider>
+    );
 }
-
-export default Signup
