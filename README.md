@@ -10,7 +10,7 @@ A website that helps University and High school students connect with employers 
 To run:
 `npm start` 
 
-### Running the Bront-End
+### Running the Back-End
 Open a new terminal
 `cd server`
 `npm install`
