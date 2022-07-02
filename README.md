@@ -1,5 +1,5 @@
 # OneHacks-II
-A website that helps University and High school students connect with employers and find jobs easier.
+A website that helps University and High school students connect with employers and find jobs easier. (still in progress!)
 
 
 ## Install
